@@ -17,7 +17,7 @@ Permite analizar y monitorizar la actividad de red, conexiones y paquetes.
 ## 📸 Análisis de Capturas
 
 ### 🖼️ `tcpdump` (Capturador de Paquetes)
-![tcpdump](UD3/img/tcpdump.png)
+![tcpdump](/UD3/img/tcpdump.png)
 
 #### Comando: `sudo tcpdump -i eno1 -vvv`
 * **`tcpdump`**: Es un "sniffer" de red. Una potente herramienta de línea de comandos que captura y analiza el tráfico de red (paquetes) que pasa por una interfaz.
