@@ -87,7 +87,7 @@ La memoria muestra cómo se usan los recursos RAM, disco y CPU en el sistema.
     * **`avg-cpu`**: Muestra el uso medio de la CPU. Lo más relevante aquí es `%iowait` (CPU esperando por E/S) y `%idle` (CPU inactiva). Vemos que `%idle` es casi 100% y `%iowait` es 0,00, lo que significa que la CPU no está esperando al disco (el disco no es un cuello de botella).
     * **`Device`**: Lista las estadísticas por dispositivo. `nvme0n1` es el disco SSD principal.
     * `r/s` y `w/s`: Lecturas y escrituras por segundo.
-    * `rkB/s` y `wkB/s`: KiloBytes leídos y escritos por segundo. Vemos picos de escritura (`wkB/s` de 84,80 o 85,71), lo que indica que algo está escribiendo datos en el disco.
+    * `rkB/s` y `wkB/s`: KiloBytes leídos y escritos por segundo. Vemos picos de escritura (`wkB/s` de 84,80 o 85,71), lo que indica que algo está escribiendo datos en el disco. (Hemos descargado una imagen iso de debian de prueba)
 
 ### 🖼️ `atop` (Monitor de Rendimiento Avanzado)
 ![atop1](/UD2/img/atop1.png)
