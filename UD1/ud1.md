@@ -80,7 +80,7 @@ La salida de `top` se divide en dos partes:
 * La imagen muestra el resultado de capturar una "foto" instantánea del estado del sistema usando `top` y guardarla en un archivo. Es muy útil para *scripts* o para registrar el estado del sistema en un momento concreto sin tener que interactuar con `top`.
 
 ### 🖼️ `htop` (Monitor de procesos interactivo)
-![htop](/UD1/img/htop.jpg)
+![htop](/UD1/img/htop.png)
 
 #### Comando: `htop`
 * **`htop`**: Es un visor de procesos interactivo y un monitor de sistema. Se considera una alternativa moderna y más visual a `top`.
