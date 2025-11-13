@@ -47,8 +47,8 @@ Permite analizar y monitorizar la actividad de red, conexiones y paquetes.
 * **`-i eno1`**: Especifica la **interfaz** de red que se va a escuchar. En este caso, la interfaz Ethernet `eno1`.
 
 #### Detalles de la foto
-* La **primera imagen (`tcptrack1.png`)** muestra el comando justo antes de ser ejecutado.
-* La **segunda imagen (`tcptrack2.png`)** muestra la salida interactiva de `tcptrack`. Lista todas las conexiones TCP activas en la interfaz `eno1`:
+* La **primera imagen** muestra el comando justo antes de ser ejecutado.
+* La **segunda imagen** muestra la salida interactiva de `tcptrack`. Lista todas las conexiones TCP activas en la interfaz `eno1`:
     * **`Client`**: La IP y puerto de origen (nuestro equipo).
     * **`Server`**: La IP y puerto de destino (el servidor remoto).
     * **`State`**: El estado de la conexión (ej. `ESTABLISHED` significa que está activa).
