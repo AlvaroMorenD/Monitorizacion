@@ -49,13 +49,13 @@ Los puertos permiten la comunicación entre dispositivos y servicios. Estas herr
 ![nmap](/UD4/img/nmap.png)
 ![nmap2](/UD4/img/nmap2.png)
 
-#### Comando 1: `nmap -sn 172.26.0.1/24` (Foto `nmap.png`)
+#### Comando 1: `nmap -sn 172.26.0.1/24`
 * **`nmap`**: Es un potente escáner de redes y puertos.
 * **`-sn`**: Es un "Ping Scan" (Scan de Ping). **Desactiva el escaneo de puertos**. Su única función es descubrir qué hosts están *vivos* (responden) en la red.
 * **`172.26.0.1/24`**: Es el objetivo. Especifica la subred completa, desde `172.26.0.1` hasta `172.26.0.254`.
 * **Detalles (Foto 1)**: La imagen solo muestra el comando listo para ejecutarse. El resultado de este comando sería una lista de las IPs que están encendidas en esa red.
 
-#### Comando 2: `nmap --top-ports 100 -sV 172.26.10.99` (Foto `nmap2.png`)
+#### Comando 2: `nmap --top-ports 100 -sV 172.26.10.99`
 * **`--top-ports 100`**: Escanea únicamente los 100 puertos TCP más comunes (en lugar de los 1000 por defecto o los 65535 totales).
 * **`-sV`**: Activa la **detección de versión y servicio**. `nmap` no solo dirá si un puerto está abierto, sino que intentará averiguar *qué* software se está ejecutando en él y su versión.
 * **`172.26.10.99`**: El objetivo del escaneo (un solo host).
