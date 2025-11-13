@@ -19,7 +19,7 @@ Los procesos son programas o tareas en ejecución. Podemos monitorizarlos con he
 Aquí vemos tres variantes del comando `ps` para filtrar procesos.
 
 #### 1. `ps -u alumno`
-![ps u alumno](/img/psualumno.png)
+![ps u alumno](/UD1/img/psualumno.png)
 * **`ps`**: Comando base para ver procesos.
 * **`-u alumno`**: Filtra la lista para mostrar únicamente los procesos que pertenecen al **usuario** "alumno".
 * **Detalles de la foto**: La salida muestra todos los procesos propiedad del usuario `alumno`. Vemos que `alumno` está ejecutando un `systemd` de usuario, servicios como `pipewire`, un `bash` (terminal) en `tty3` y el editor de texto `nano`. Es una forma rápida de ver qué está haciendo un usuario específico.
