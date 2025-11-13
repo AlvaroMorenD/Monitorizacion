@@ -25,13 +25,13 @@ Aquí vemos tres variantes del comando `ps` para filtrar procesos.
 * **Detalles de la foto**: La salida muestra todos los procesos propiedad del usuario `alumno`. Vemos que `alumno` está ejecutando un `systemd` de usuario, servicios como `pipewire`, un `bash` (terminal) en `tty3` y el editor de texto `nano`. Es una forma rápida de ver qué está haciendo un usuario específico.
 
 #### 2. `ps au`
-![ps au](Procesos/img/ps%20au.png)
+![ps au](/UD1/img/psau.png)
 * **`a`**: Muestra los procesos de **todos los usuarios** que están asociados a una **terminal** (TTY).
 * **`u`**: Muestra la salida en formato **orientado al usuario** (user-oriented), que incluye columnas útiles como `USER`, `%CPU`, `%MEM`, `VSZ` (memoria virtual), `RSS` (memoria física), `STAT` (estado) y `COMMAND`.
 * **Detalles de la foto**: Esta vista es un resumen de las sesiones de usuario activas. Vemos procesos de `keibron` (el usuario principal), `root` y `alumno`. No muestra los servicios del sistema o demonios que no tienen terminal.
 
 #### 3. `ps aux`
-![ps aux](Procesos/img/ps%20aux.png)
+![ps aux](/UD1/img/psaux.png)
 * **`a`**: Procesos de todos los usuarios con TTY.
 * **`u`**: Formato orientado al usuario.
 * **`x`**: Incluye procesos que **no** están asociados a una terminal (demonios, servicios de fondo, hilos del kernel).
@@ -40,7 +40,7 @@ Aquí vemos tres variantes del comando `ps` para filtrar procesos.
 ---
 
 ### 🖼️ `top` (Monitor de procesos)
-![top1](Procesos/img/top1.png)
+![top1](/UD1/img/top1.png)
 
 #### Comando: `top`
 * **`top`**: Es un monitor de sistema interactivo que se ejecuta en la terminal. Proporciona una vista en tiempo real de los procesos y el consumo de recursos del sistema.
@@ -64,7 +64,7 @@ La salida de `top` se divide en dos partes:
     * En la captura, vemos que `firefox` (PID 3850) y `gnome-shell` (PID 2982) son los procesos que más recursos consumen en ese momento.
 
 ### 🖼️ `top` (Modo Batch)
-![TopInfo](Procesos/img/TopInfo.png)
+![TopInfo](/UD1/img/TopInfo.png)
 
 #### Comandos: `top -b -n 1 > top.info` y `cat top.info`
 * **`top -b -n 1 > top.info`**:
@@ -80,7 +80,7 @@ La salida de `top` se divide en dos partes:
 * La imagen muestra el resultado de capturar una "foto" instantánea del estado del sistema usando `top` y guardarla en un archivo. Es muy útil para *scripts* o para registrar el estado del sistema en un momento concreto sin tener que interactuar con `top`.
 
 ### 🖼️ `htop` (Monitor de procesos interactivo)
-![htop](Procesos/img/htop.jpg)
+![htop](/UD1/img/htop.jpg)
 
 #### Comando: `htop`
 * **`htop`**: Es un visor de procesos interactivo y un monitor de sistema. Se considera una alternativa moderna y más visual a `top`.
@@ -91,7 +91,7 @@ La salida de `top` se divide en dos partes:
 * **Menú Inferior:** Muestra las acciones rápidas disponibles mediante las teclas de función (F1 a F10), como `F9 Kill` (matar un proceso), `F7 Nice -` (reducir prioridad) o `F4 Filter` (filtrar procesos por nombre).
 
 ### 🖼️ `ps` (Ejercicio 1)
-![ejercicio1](Procesos/img/ejercicio1.png)
+![ejercicio1](/UD1/img/ejercicio1.png)
 
 #### Comando: `ps -eo user,pid,%cpu,comm --sort=-%cpu | head -n 6`
 Este es un comando compuesto por varias partes:
