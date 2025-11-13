@@ -1,81 +1,95 @@
-# 🌐 UD 3: Tráfico de la red
+# 🔌 UD 4: Puertos y Sockets
 
 Volver al [README principal](../README.md)
 
-Permite analizar y monitorizar la actividad de red, conexiones y paquetes.
+Los puertos permiten la comunicación entre dispositivos y servicios. Estas herramientas ayudan a detectar puertos abiertos, conexiones activas o servicios escuchando.
 
 ---
 
 ## 📋 Comandos usados:
-- **tcpdump** → Captura y analiza paquetes de red.
-- **tcptrack** → Muestra las conexiones TCP activas en tiempo real.
-- **iptraf** → Interfaz gráfica en terminal para tráfico de red.
-- **bmon** → Visualiza el ancho de banda usado por interfaces.
+- **ss** → Muestra estadísticas y sockets activos.
+- **nmap** → Escanea puertos y servicios de una red.
+- **whois** → Muestra información del dominio o IP.
+- **arp -n** → Lista los dispositivos conectados mostrando IP, MAC y tipo de interfaz.
 
 ---
 
 ## 📸 Análisis de Capturas
 
-### 🖼️ `tcpdump` (Capturador de Paquetes)
-![tcpdump](/UD3/img/tcpdump.png)
+### 🖼️ `ss` (Socket Statistics)
+![ss](/UD4/img/ss.png)
+![ss2](/UD4/img/ss2.png)
 
-#### Comando: `sudo tcpdump -i eno1 -vvv`
-* **`tcpdump`**: Es un "sniffer" de red. Una potente herramienta de línea de comandos que captura y analiza el tráfico de red (paquetes) que pasa por una interfaz.
-* **`sudo`**: Es necesario ejecutarlo como superusuario para poder poner la tarjeta de red en modo de captura.
-* **`-i eno1`**: Especifica la **interfaz** de red que se va a escuchar (en este caso, `eno1`).
-* **`-vvv`**: Aumenta el nivel de **verbosidad** (detalle) al máximo, para obtener la mayor cantidad de información posible de cada paquete.
+#### Comando 1: `ss -plunt` (Foto `ss.png`)
+* **`ss`**: Herramienta moderna para investigar sockets (reemplazo de `netstat`).
+* **`-p`**: Muestra el **proceso** (programa) que está usando el socket.
+* **`-l`**: Muestra solo los sockets que están en modo **escucha** (`LISTEN`).
+* **`-u`**: Muestra sockets **UDP**.
+* **`-n`**: Muestra direcciones y puertos en formato **numérico** (no resuelve DNS).
+* **`-t`**: Muestra sockets **TCP**.
+* **Detalles (Foto 1)**: Este comando lista todos los puertos TCP y UDP que están "a la escucha" en la máquina.
+    * Vemos servicios `UDP` como `127.0.0.53:53` (un DNS local).
+    * Vemos servicios `TCP` como `0.0.0.0:22` (SSH escuchando en todas las interfaces) y `127.0.0.1:631` (CUPS, servicio de impresión).
+    * Destaca la línea `127.0.0.1:6463` que está siendo usada por el proceso "Discord" (pid=4183).
+
+#### Comando 2: `ss -nntp` y `ss -tnp` (Foto `ss2.png`)
+* **`ss -nntp`**:
+    * **`-nn`**: Numérico para host y puerto.
+    * **`-t`**: Muestra sockets **TCP**.
+    * **`-p`**: Muestra el **proceso**.
+* **`ss -tnp`**:
+    * **`-t`**: Muestra sockets **TCP**.
+    * **`-n`**: Numérico para host (pero no para puerto, aunque en la salida se ve numérico).
+    * **`-p`**: Muestra el **proceso**.
+* **Detalles (Foto 2)**: A diferencia del comando anterior, al no usar `-l` (listen), `ss` muestra por defecto las conexiones **establecidas** (`ESTAB`).
+    * Las dos salidas son idénticas y muestran las conexiones activas salientes.
+    * Vemos que los procesos "firefox" (pid 4377) y "Discord" (pid 4118) tienen varias conexiones a servidores externos (ej. `34.107.243.93:443`), la mayoría al puerto `443` (HTTPS).
+
+### 🖼️ `nmap` (Network Mapper)
+![nmap](/UD4/img/nmap.png)
+![nmap2](/UD4/img/nmap2.png)
+
+#### Comando 1: `nmap -sn 172.26.0.1/24` (Foto `nmap.png`)
+* **`nmap`**: Es un potente escáner de redes y puertos.
+* **`-sn`**: Es un "Ping Scan" (Scan de Ping). **Desactiva el escaneo de puertos**. Su única función es descubrir qué hosts están *vivos* (responden) en la red.
+* **`172.26.0.1/24`**: Es el objetivo. Especifica la subred completa, desde `172.26.0.1` hasta `172.26.0.254`.
+* **Detalles (Foto 1)**: La imagen solo muestra el comando listo para ejecutarse. El resultado de este comando sería una lista de las IPs que están encendidas en esa red.
+
+#### Comando 2: `nmap --top-ports 100 -sV 172.26.10.99` (Foto `nmap2.png`)
+* **`--top-ports 100`**: Escanea únicamente los 100 puertos TCP más comunes (en lugar de los 1000 por defecto o los 65535 totales).
+* **`-sV`**: Activa la **detección de versión y servicio**. `nmap` no solo dirá si un puerto está abierto, sino que intentará averiguar *qué* software se está ejecutando en él y su versión.
+* **`172.26.10.99`**: El objetivo del escaneo (un solo host).
+* **Detalles (Foto 2)**: El resultado del escaneo es muy claro:
+    * `Host is up`: La máquina está encendida.
+    * `Not shown: 98 closed tcp ports`: De los 100 puertos escaneados, 98 estaban cerrados.
+    * `PORT 80/tcp open http`: El puerto 80 (HTTP) está abierto.
+    * `PORT 8081/tcp open http`: El puerto 8081 también está abierto.
+    * Gracias a `-sV`, sabemos que en ambos puertos se está ejecutando un servidor web **Apache httpd 2.4.58 ((Ubuntu))**.
+
+### 🖼️ `whois`
+![whois](/UD4/img/whois.png)
+
+#### Comando: `whois 34.107.243.93`
+* **`whois`**: Es una herramienta de consulta que obtiene información de registro sobre un nombre de dominio o una dirección IP a partir de bases de datos públicas.
+* **`34.107.243.93`**: La dirección IP que queremos investigar.
 
 #### Detalles de la foto
-* La salida es un registro en tiempo real de los paquetes capturados. Cada línea es un paquete:
-    * `09:49:23...`: La marca de tiempo (timestamp) de cuándo se capturó el paquete.
-    * `IP pc204.42696 > 238.red-80-58-0.static.ri.net.domain`: Esto describe un paquete IP.
-        * Origen: `pc204` (nuestra máquina) desde el puerto `42696`.
-        * Destino: Un servidor (`238.red-80-58-0...`) en el puerto `.domain` (que es el puerto 53, usado para consultas DNS).
-    * `IP 34.107.243.93.https > pc204.42080`: Esto es un paquete de vuelta.
-        * Origen: Un servidor externo (IP `34.107...`) desde su puerto `https` (puerto 443).
-        * Destino: Nuestra máquina (`pc204`) en el puerto `42080`.
-    * `Flags [P.]`: Es un *flag* de TCP. `P` (Push) indica que los datos deben ser entregados a la aplicación inmediatamente.
-    * **En resumen**: Estamos viendo tráfico mixto, principalmente consultas DNS (salientes al puerto 53) y tráfico web seguro (entrante desde el puerto 443).
+* El resultado proviene de ARIN (el Registro Regional de Internet para América del Norte).
+* **`NetRange`**: Muestra que esta IP pertenece a un bloque enorme (`34.64.0.0 - 34.127.255.255`).
+* **`OrgName`**: El propietario del bloque es **Google LLC**.
+* **`Address`**: Muestra la dirección física de Google (1600 Amphitheatre Parkway).
+* **`Comment`**: Aclara que estas IPs son usadas por clientes de **Google Cloud**. (Esta IP la vimos en la captura de `ss2.png`, probablemente una conexión de Firefox o Discord a un servicio alojado en Google Cloud).
 
-### 🖼️ `tcptrack`
-![tcptrack1](/UD3/img/tcptrack1.png)
-![tcptrack2](/UD3/img/tcptrack2.png)
+### 🖼️ `arp`
+![arp-n](/UD4/img/arp-n.png)
 
-#### Comando: `sudo tcptrack -i eno1`
-* **`sudo`**: Ejecuta el comando como superusuario (root), necesario para capturar paquetes de red.
-* **`tcptrack`**: Es la herramienta para monitorizar conexiones TCP.
-* **`-i eno1`**: Especifica la **interfaz** de red que se va a escuchar. En este caso, la interfaz Ethernet `eno1`.
+#### Comando: `arp -n`
+* **`arp`**: Gestiona la **caché ARP** (Protocolo de Resolución de Direcciones) del sistema. ARP es el protocolo que traduce direcciones IP (Capa 3) a direcciones MAC (Capa 2) en una red local.
+* **`-n`**: Opción **numérica**. Evita que `arp` intente resolver las direcciones IP a nombres de host (DNS), haciendo que la salida sea más rápida y limpia.
 
 #### Detalles de la foto
-* La **primera imagen (`tcptrack1.png`)** muestra el comando justo antes de ser ejecutado.
-* La **segunda imagen (`tcptrack2.png`)** muestra la salida interactiva de `tcptrack`. Lista todas las conexiones TCP activas en la interfaz `eno1`:
-    * **`Client`**: La IP y puerto de origen (nuestro equipo).
-    * **`Server`**: La IP y puerto de destino (el servidor remoto).
-    * **`State`**: El estado de la conexión (ej. `ESTABLISHED` significa que está activa).
-    * **`Idle`**: Tiempo de inactividad (cuánto tiempo ha pasado desde el último paquete).
-    * **`Speed`**: Velocidad de transferencia actual.
-    * En la captura, vemos tres conexiones establecidas al puerto `443` (HTTPS) a diferentes IPs de servidores remotos.
-
-### 🖼️ `iptraf`
-![iptraf](/UD3/img/iptraf.png)
-
-#### Comando: `iptraf` (o `sudo iptraf-ng`)
-* **`iptraf`**: Es una herramienta interactiva basada en ncurses (interfaz en terminal) que proporciona estadísticas de red en tiempo real. La imagen muestra el monitor de tráfico IP.
-
-#### Detalles de la foto
-* La pantalla está dividida en dos secciones principales:
-    1.  **Conexiones TCP (arriba)**: Muestra un resumen de las conexiones TCP activas. Vemos la IP de origen/destino y sus puertos, el número de paquetes (`Packets`) y bytes (`Bytes`) transferidos, y la interfaz (`Iface`). Por ejemplo, hay una conexión a `104.18.39.21:443`.
-    2.  **Registro de paquetes (abajo)**: La sección inferior (con texto rojo y blanco) muestra un *log* detallado de paquetes individuales a medida que se capturan. En este caso, está mostrando principalmente tráfico `UDP` desde nuestra IP (`172.26.10.227`) a un servidor DNS (`80.58.61.250`) en el puerto `53`.
-
-### 🖼️ `bmon`
-![bmon](/UD3/img/bmon.png)
-
-#### Comando: `bmon`
-* **`bmon`** (Bandwidth Monitor): Es una herramienta para monitorizar el ancho de banda y visualizar el tráfico de red en tiempo real, de forma gráfica, en la terminal.
-
-#### Detalles de la foto
-* **`Interfaces`**: Arriba a la izquierda, lista todas las interfaces de red disponibles (`eno1`, `lo`, `docker0`, etc.). La interfaz `eno1` está seleccionada.
-* **`Gráficos (RX/TX)`**: La parte principal de la pantalla muestra dos gráficos:
-    * **`RX Bytes/second` (Recepción)**: Muestra el tráfico de *descarga* (entrada) en Kibibytes (KiB) por segundo.
-    * **`TX Bytes/second` (Transmisión)**: Muestra el tráfico de *subida* (salida) en KiB por segundo.
-* En la captura, podemos ver picos de tráfico de bajada (RX) de hasta 8.57 KiB/s y de subida (TX) de hasta 9.82 KiB/s.
+* La tabla muestra la caché ARP de la máquina local. Es un mapa de IPs locales y sus correspondientes direcciones físicas (MAC).
+* **`Dirección`**: La dirección IP de un dispositivo en la red local (ej. `172.26.0.12`).
+* **`DirecciónHW`**: La dirección MAC (hardware) única de ese dispositivo (ej. `3c:2a:f4:01:14:0f`).
+* **`Interfaz`**: La interfaz de red de *nuestra* máquina (`eno1`) que se usa para comunicarse con ese dispositivo.
+* En resumen, esta tabla muestra los "vecinos" de nuestra máquina en la red local con los que ha hablado recientemente.
