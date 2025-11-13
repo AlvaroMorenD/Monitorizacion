@@ -42,7 +42,6 @@ Aquí vemos tres variantes del comando `ps` para filtrar procesos.
 ### 🖼️ `top` (Monitor de procesos)
 ![top1](/UD1/img/top1.png)
 
-#### Comando: `top`
 * **`top`**: Es un monitor de sistema interactivo que se ejecuta en la terminal. Proporciona una vista en tiempo real de los procesos y el consumo de recursos del sistema.
 
 #### Detalles de la foto
