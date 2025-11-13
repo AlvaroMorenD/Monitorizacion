@@ -20,7 +20,7 @@ Los puertos permiten la comunicación entre dispositivos y servicios. Estas herr
 ![ss](/UD4/img/ss.png)
 ![ss2](/UD4/img/ss2.png)
 
-#### Comando 1: `ss -plunt` (Foto `ss.png`)
+#### Comando 1: `ss -plunt`
 * **`ss`**: Herramienta moderna para investigar sockets (reemplazo de `netstat`).
 * **`-p`**: Muestra el **proceso** (programa) que está usando el socket.
 * **`-l`**: Muestra solo los sockets que están en modo **escucha** (`LISTEN`).
@@ -32,7 +32,7 @@ Los puertos permiten la comunicación entre dispositivos y servicios. Estas herr
     * Vemos servicios `TCP` como `0.0.0.0:22` (SSH escuchando en todas las interfaces) y `127.0.0.1:631` (CUPS, servicio de impresión).
     * Destaca la línea `127.0.0.1:6463` que está siendo usada por el proceso "Discord" (pid=4183).
 
-#### Comando 2: `ss -nntp` y `ss -tnp` (Foto `ss2.png`)
+#### Comando 2: `ss -nntp` y `ss -tnp`
 * **`ss -nntp`**:
     * **`-nn`**: Numérico para host y puerto.
     * **`-t`**: Muestra sockets **TCP**.
