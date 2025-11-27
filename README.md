@@ -20,4 +20,4 @@ Haz clic en el enlace de cada tema para ver los comandos y las capturas detallad
 ---
 
 > ✍️ **Autor:** Álvaro Moreno Domínguez
-> 📆 **Proyecto:** Monitorización del sistema Linux
+
