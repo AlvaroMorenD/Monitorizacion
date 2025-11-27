@@ -4,8 +4,6 @@
 [![Bash](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
 [![Monitoring](https://img.shields.io/badge/Monitoring-blue?style=for-the-badge&logo=prometheus)](https://prometheus.io/)
 
-Este proyecto documenta herramientas esenciales para la administración y monitorización de sistemas Linux. Está estructurado en 4 unidades temáticas que abarcan desde la gestión de procesos hasta el análisis de tráfico de red.
-
 ---
 
 ## 📂 Acceso a las Unidades
@@ -21,16 +19,5 @@ Haz clic en el enlace de cada tema para ver los comandos y las capturas detallad
 
 ---
 
-## 🛠️ Resumen de Herramientas
-
-Lista rápida de los comandos analizados en este repositorio:
-
-* **Procesos:** `ps`, `top`, `htop`
-* **Memoria/Disco:** `free`, `df`, `du`, `iostat`, `atop`
-* **Red:** `tcpdump`, `tcptrack`, `iptraf`, `bmon`
-* **Puertos:** `ss`, `nmap`, `whois`, `arp`
-
----
-
-> ✍️ **Autor:** Alumno de ASIR
+> ✍️ **Autor:** Álvaro Moreno Domínguez
 > 📆 **Proyecto:** Monitorización del sistema Linux
